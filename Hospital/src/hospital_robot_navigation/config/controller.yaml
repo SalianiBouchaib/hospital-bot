@@ -1,0 +1,10 @@
+controller_server:
+  ros__parameters:
+    controller_frequency: 20.0
+    controller_plugins: ["FollowPath"]
+    FollowPath:
+      plugin: "dwb_core::DWBLocalPlanner"
+      max_vel_x: 0.6
+      max_vel_theta: 1.2
+      acc_lim_x: 2.5
+      acc_lim_theta: 3.2

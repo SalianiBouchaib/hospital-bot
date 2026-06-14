@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<robot name="hospital_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find hospital_robot_description)/urdf/base.xacro"/>
+  <xacro:include filename="$(find hospital_robot_description)/urdf/wheels.xacro"/>
+  <xacro:include filename="$(find hospital_robot_description)/urdf/lidar.xacro"/>
+
+  <xacro:hospital_base prefix=""/>
+  <xacro:hospital_wheels prefix=""/>
+  <xacro:hospital_lidar prefix=""/>
+
+  <link name="base_footprint"/>
+  <joint name="base_footprint_joint" type="fixed">
+    <origin xyz="0 0 0.0" rpy="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+  </joint>
+
+  <gazebo reference="base_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <gazebo reference="left_wheel_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <gazebo reference="right_wheel_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <gazebo reference="front_caster_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <gazebo reference="rear_caster_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <gazebo reference="lidar_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="gazebo_ros_planar_move" filename="libgazebo_ros_planar_move.so">
+      <ros>
+        <namespace>/</namespace>
+        <remapping>cmd_vel:=/cmd_vel</remapping>
+        <remapping>odom:=/odom</remapping>
+      </ros>
+      <commandTopic>/cmd_vel</commandTopic>
+      <odometryTopic>/odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <robotBaseFrame>base_footprint</robotBaseFrame>
+      <publishTF>true</publishTF>
+      <odometryRate>50.0</odometryRate>
+    </plugin>
+  </gazebo>
+
+  <gazebo reference="lidar_link">
+    <sensor name="lidar_sensor" type="ray">
+      <pose>0 0 0 0 0 0</pose>
+      <always_on>true</always_on>
+      <visualize>false</visualize>
+      <update_rate>8</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>270</samples>
+            <resolution>1</resolution>
+            <min_angle>-3.14159</min_angle>
+            <max_angle>3.14159</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.12</min>
+          <max>8.0</max>
+          <resolution>0.01</resolution>
+        </range>
+      </ray>
+      <plugin name="gazebo_ros_ray_sensor" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>/</namespace>
+          <remapping>~/out:=/scan</remapping>
+        </ros>
+        <frame_name>lidar_link</frame_name>
+        <output_type>sensor_msgs/LaserScan</output_type>
+      </plugin>
+    </sensor>
+  </gazebo>
+</robot>

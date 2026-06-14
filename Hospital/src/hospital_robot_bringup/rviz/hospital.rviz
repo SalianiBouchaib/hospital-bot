@@ -1,0 +1,86 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+  - Class: rviz_common/Selection
+    Name: Selection
+  - Class: rviz_common/Tool Properties
+    Name: Tool Properties
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Name: Floor Grid
+      Class: rviz_default_plugins/Grid
+      Enabled: true
+      Cell Size: 0.5
+      Color: 160; 160; 160
+      Plane Cell Count: 24
+    - Name: Map
+      Class: rviz_default_plugins/Map
+      Enabled: true
+      Alpha: 0.75
+      Topic:
+        Value: /map
+    - Name: Robot Model
+      Class: rviz_default_plugins/RobotModel
+      Enabled: true
+      Alpha: 1
+      Description Topic:
+        Value: /robot_description
+    - Name: Laser Scan
+      Class: rviz_default_plugins/LaserScan
+      Enabled: true
+      Color: 255; 120; 40
+      Size (m): 0.04
+      Topic:
+        Value: /scan
+    - Name: Odometry
+      Class: rviz_default_plugins/Odometry
+      Enabled: true
+      Topic:
+        Value: /odom
+    - Name: Global Plan
+      Class: rviz_default_plugins/Path
+      Enabled: true
+      Color: 25; 120; 255
+      Topic:
+        Value: /plan
+    - Name: Local Plan
+      Class: rviz_default_plugins/Path
+      Enabled: true
+      Color: 255; 170; 0
+      Topic:
+        Value: /local_plan
+    - Name: Delivery Goal
+      Class: rviz_default_plugins/Pose
+      Enabled: true
+      Color: 0; 220; 120
+      Topic:
+        Value: /goal_pose
+    - Name: Global Costmap
+      Class: rviz_default_plugins/Map
+      Enabled: false
+      Alpha: 0.45
+      Topic:
+        Value: /global_costmap/costmap
+    - Name: Local Costmap
+      Class: rviz_default_plugins/Map
+      Enabled: false
+      Alpha: 0.45
+      Topic:
+        Value: /local_costmap/costmap
+    - Name: TF
+      Class: rviz_default_plugins/TF
+      Enabled: false
+  Global Options:
+    Fixed Frame: map
+    Frame Rate: 30
+  Tools:
+    - Class: rviz_default_plugins/Interact
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/SetInitialPose
+      Topic:
+        Value: /initialpose
+    - Class: rviz_default_plugins/SetGoal
+      Topic:
+        Value: /goal_pose

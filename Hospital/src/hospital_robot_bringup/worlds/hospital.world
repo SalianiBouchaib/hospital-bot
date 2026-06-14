@@ -1,0 +1,577 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="hospital_world">
+    <gravity>0 0 -9.8</gravity>
+
+    <scene>
+      <ambient>0.78 0.8 0.82 1</ambient>
+      <background>0.9 0.93 0.96 1</background>
+      <shadows>false</shadows>
+    </scene>
+
+    <physics name="default_physics" type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+
+    <light type="directional" name="sun_light">
+      <cast_shadows>false</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.95 0.95 0.9 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.25 -1.0</direction>
+    </light>
+
+    <light type="point" name="ceiling_light_center">
+      <pose>0 0 3.5 0 0 0</pose>
+      <diffuse>0.9 0.95 1.0 1</diffuse>
+      <specular>0.15 0.15 0.15 1</specular>
+      <attenuation>
+        <range>9</range>
+        <constant>0.8</constant>
+        <linear>0.08</linear>
+        <quadratic>0.01</quadratic>
+      </attenuation>
+    </light>
+
+    <light type="point" name="ceiling_light_patient_rooms">
+      <pose>2.5 2.3 3.3 0 0 0</pose>
+      <diffuse>0.86 0.93 1.0 1</diffuse>
+      <specular>0.12 0.12 0.12 1</specular>
+      <attenuation>
+        <range>7</range>
+        <constant>0.8</constant>
+        <linear>0.08</linear>
+        <quadratic>0.012</quadratic>
+      </attenuation>
+    </light>
+
+    <light type="point" name="ceiling_light_service_area">
+      <pose>-1.5 -2.2 3.3 0 0 0</pose>
+      <diffuse>0.86 0.93 1.0 1</diffuse>
+      <specular>0.12 0.12 0.12 1</specular>
+      <attenuation>
+        <range>7</range>
+        <constant>0.8</constant>
+        <linear>0.08</linear>
+        <quadratic>0.012</quadratic>
+      </attenuation>
+    </light>
+
+    <model name="floor">
+      <static>true</static>
+      <link name="floor_link">
+        <collision name="floor_collision">
+          <pose>0 0 -0.05 0 0 0</pose>
+          <geometry><box><size>12 8 0.1</size></box></geometry>
+        </collision>
+        <visual name="floor_visual">
+          <pose>0 0 -0.05 0 0 0</pose>
+          <geometry><box><size>12 8 0.1</size></box></geometry>
+          <material>
+            <ambient>0.8 0.84 0.85 1</ambient>
+            <diffuse>0.88 0.91 0.92 1</diffuse>
+            <specular>0.05 0.05 0.05 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="main_corridor_strip">
+      <static>true</static>
+      <link name="link">
+        <visual name="visual">
+          <pose>0 0 0.006 0 0 0</pose>
+          <geometry><box><size>9.6 0.08 0.01</size></box></geometry>
+          <material>
+            <ambient>0.28 0.55 0.68 1</ambient>
+            <diffuse>0.32 0.64 0.8 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="floor_zones_and_markings">
+      <static>true</static>
+      <link name="link">
+        <visual name="patient_room_floor_101">
+          <pose>1.65 2.2 0.008 0 0 0</pose>
+          <geometry><box><size>1.75 1.55 0.01</size></box></geometry>
+          <material>
+            <ambient>0.83 0.9 0.94 1</ambient>
+            <diffuse>0.88 0.95 0.98 1</diffuse>
+          </material>
+        </visual>
+        <visual name="patient_room_floor_102">
+          <pose>3.75 2.2 0.008 0 0 0</pose>
+          <geometry><box><size>1.75 1.55 0.01</size></box></geometry>
+          <material>
+            <ambient>0.83 0.9 0.94 1</ambient>
+            <diffuse>0.88 0.95 0.98 1</diffuse>
+          </material>
+        </visual>
+        <visual name="pharmacy_floor">
+          <pose>-2.2 1.35 0.009 0 0 0</pose>
+          <geometry><box><size>1.75 1.25 0.01</size></box></geometry>
+          <material>
+            <ambient>0.8 0.9 0.86 1</ambient>
+            <diffuse>0.84 0.96 0.9 1</diffuse>
+          </material>
+        </visual>
+        <visual name="nurse_station_floor">
+          <pose>0 -2.25 0.009 0 0 0</pose>
+          <geometry><box><size>2.15 1.35 0.01</size></box></geometry>
+          <material>
+            <ambient>0.88 0.86 0.78 1</ambient>
+            <diffuse>0.96 0.94 0.84 1</diffuse>
+          </material>
+        </visual>
+        <visual name="corridor_edge_north">
+          <pose>0 0.72 0.014 0 0 0</pose>
+          <geometry><box><size>9.6 0.035 0.012</size></box></geometry>
+          <material><ambient>0.1 0.42 0.56 1</ambient><diffuse>0.12 0.5 0.68 1</diffuse></material>
+        </visual>
+        <visual name="corridor_edge_south">
+          <pose>0 -0.72 0.014 0 0 0</pose>
+          <geometry><box><size>9.6 0.035 0.012</size></box></geometry>
+          <material><ambient>0.1 0.42 0.56 1</ambient><diffuse>0.12 0.5 0.68 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="floor_tile_lines">
+      <static>true</static>
+      <link name="link">
+        <visual name="tile_x_1"><pose>-4 0 0.012 0 0 0</pose><geometry><box><size>0.018 6.4 0.01</size></box></geometry><material><ambient>0.68 0.73 0.75 1</ambient><diffuse>0.72 0.77 0.79 1</diffuse></material></visual>
+        <visual name="tile_x_2"><pose>-2 0 0.012 0 0 0</pose><geometry><box><size>0.018 6.4 0.01</size></box></geometry><material><ambient>0.68 0.73 0.75 1</ambient><diffuse>0.72 0.77 0.79 1</diffuse></material></visual>
+        <visual name="tile_x_3"><pose>0 0 0.012 0 0 0</pose><geometry><box><size>0.018 6.4 0.01</size></box></geometry><material><ambient>0.68 0.73 0.75 1</ambient><diffuse>0.72 0.77 0.79 1</diffuse></material></visual>
+        <visual name="tile_x_4"><pose>2 0 0.012 0 0 0</pose><geometry><box><size>0.018 6.4 0.01</size></box></geometry><material><ambient>0.68 0.73 0.75 1</ambient><diffuse>0.72 0.77 0.79 1</diffuse></material></visual>
+        <visual name="tile_x_5"><pose>4 0 0.012 0 0 0</pose><geometry><box><size>0.018 6.4 0.01</size></box></geometry><material><ambient>0.68 0.73 0.75 1</ambient><diffuse>0.72 0.77 0.79 1</diffuse></material></visual>
+        <visual name="tile_y_1"><pose>0 -2.4 0.012 0 0 0</pose><geometry><box><size>9.8 0.018 0.01</size></box></geometry><material><ambient>0.68 0.73 0.75 1</ambient><diffuse>0.72 0.77 0.79 1</diffuse></material></visual>
+        <visual name="tile_y_2"><pose>0 -1.2 0.012 0 0 0</pose><geometry><box><size>9.8 0.018 0.01</size></box></geometry><material><ambient>0.68 0.73 0.75 1</ambient><diffuse>0.72 0.77 0.79 1</diffuse></material></visual>
+        <visual name="tile_y_3"><pose>0 1.2 0.012 0 0 0</pose><geometry><box><size>9.8 0.018 0.01</size></box></geometry><material><ambient>0.68 0.73 0.75 1</ambient><diffuse>0.72 0.77 0.79 1</diffuse></material></visual>
+        <visual name="tile_y_4"><pose>0 2.4 0.012 0 0 0</pose><geometry><box><size>9.8 0.018 0.01</size></box></geometry><material><ambient>0.68 0.73 0.75 1</ambient><diffuse>0.72 0.77 0.79 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="north_wall">
+      <static>true</static>
+      <pose>0 3.4 1.1 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>10.4 0.15 2.2</size></box></geometry></collision>
+        <visual name="visual">
+          <geometry><box><size>10.4 0.15 2.2</size></box></geometry>
+          <material>
+            <ambient>0.82 0.88 0.9 1</ambient>
+            <diffuse>0.9 0.95 0.97 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="south_wall">
+      <static>true</static>
+      <pose>0 -3.4 1.1 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>10.4 0.15 2.2</size></box></geometry></collision>
+        <visual name="visual">
+          <geometry><box><size>10.4 0.15 2.2</size></box></geometry>
+          <material>
+            <ambient>0.82 0.88 0.9 1</ambient>
+            <diffuse>0.9 0.95 0.97 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="west_wall">
+      <static>true</static>
+      <pose>-5.2 0 1.1 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.15 6.8 2.2</size></box></geometry></collision>
+        <visual name="visual">
+          <geometry><box><size>0.15 6.8 2.2</size></box></geometry>
+          <material>
+            <ambient>0.82 0.88 0.9 1</ambient>
+            <diffuse>0.9 0.95 0.97 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="east_wall">
+      <static>true</static>
+      <pose>5.2 0 1.1 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.15 6.8 2.2</size></box></geometry></collision>
+        <visual name="visual">
+          <geometry><box><size>0.15 6.8 2.2</size></box></geometry>
+          <material>
+            <ambient>0.82 0.88 0.9 1</ambient>
+            <diffuse>0.9 0.95 0.97 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="room_101_visual_wall">
+      <static>true</static>
+      <pose>2.55 2.35 1.1 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.08 1.7 2.2</size></box></geometry>
+          <material>
+            <ambient>0.68 0.8 0.88 1</ambient>
+            <diffuse>0.74 0.88 0.96 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="room_102_visual_wall">
+      <static>true</static>
+      <pose>4.55 2.35 1.1 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.08 1.7 2.2</size></box></geometry>
+          <material>
+            <ambient>0.68 0.8 0.88 1</ambient>
+            <diffuse>0.74 0.88 0.96 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="bed_1">
+      <static>true</static>
+      <pose>1.7 1.85 0 0 0 0</pose>
+      <link name="bed_link">
+        <collision name="bed_collision">
+          <pose>0 0 0.27 0 0 0</pose>
+          <geometry><box><size>1.35 0.55 0.34</size></box></geometry>
+        </collision>
+        <visual name="bed_frame">
+          <pose>0 0 0.25 0 0 0</pose>
+          <geometry><box><size>1.45 0.65 0.28</size></box></geometry>
+          <material>
+            <ambient>0.38 0.46 0.55 1</ambient>
+            <diffuse>0.42 0.52 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="mattress">
+          <pose>0 0 0.48 0 0 0</pose>
+          <geometry><box><size>1.35 0.55 0.14</size></box></geometry>
+          <material>
+            <ambient>0.92 0.95 0.98 1</ambient>
+            <diffuse>0.96 0.98 1.0 1</diffuse>
+          </material>
+        </visual>
+        <visual name="pillow">
+          <pose>-0.45 0 0.59 0 0 0</pose>
+          <geometry><box><size>0.32 0.45 0.08</size></box></geometry>
+          <material>
+            <ambient>0.74 0.86 0.96 1</ambient>
+            <diffuse>0.78 0.9 1.0 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="bed_2">
+      <static>true</static>
+      <pose>3.85 1.85 0 0 0 0</pose>
+      <link name="bed_link">
+        <collision name="bed_collision">
+          <pose>0 0 0.27 0 0 0</pose>
+          <geometry><box><size>1.35 0.55 0.34</size></box></geometry>
+        </collision>
+        <visual name="bed_frame">
+          <pose>0 0 0.25 0 0 0</pose>
+          <geometry><box><size>1.45 0.65 0.28</size></box></geometry>
+          <material>
+            <ambient>0.38 0.46 0.55 1</ambient>
+            <diffuse>0.42 0.52 0.62 1</diffuse>
+          </material>
+        </visual>
+        <visual name="mattress">
+          <pose>0 0 0.48 0 0 0</pose>
+          <geometry><box><size>1.35 0.55 0.14</size></box></geometry>
+          <material>
+            <ambient>0.92 0.95 0.98 1</ambient>
+            <diffuse>0.96 0.98 1.0 1</diffuse>
+          </material>
+        </visual>
+        <visual name="pillow">
+          <pose>-0.45 0 0.59 0 0 0</pose>
+          <geometry><box><size>0.32 0.45 0.08</size></box></geometry>
+          <material>
+            <ambient>0.74 0.86 0.96 1</ambient>
+            <diffuse>0.78 0.9 1.0 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="obstacle_cart">
+      <static>true</static>
+      <pose>-2.15 -2.05 0 0 0 0</pose>
+      <link name="cart_link">
+        <collision name="cart_collision">
+          <pose>0 0 0.35 0 0 0</pose>
+          <geometry><box><size>0.55 0.42 0.7</size></box></geometry>
+        </collision>
+        <visual name="cart_body">
+          <pose>0 0 0.38 0 0 0</pose>
+          <geometry><box><size>0.55 0.42 0.62</size></box></geometry>
+          <material>
+            <ambient>0.72 0.74 0.76 1</ambient>
+            <diffuse>0.78 0.8 0.82 1</diffuse>
+          </material>
+        </visual>
+        <visual name="cart_top">
+          <pose>0 0 0.72 0 0 0</pose>
+          <geometry><box><size>0.62 0.48 0.06</size></box></geometry>
+          <material>
+            <ambient>0.18 0.45 0.58 1</ambient>
+            <diffuse>0.2 0.52 0.68 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="delivery_station_pharmacy">
+      <static>true</static>
+      <pose>-2.05 1.25 0 0 0 0</pose>
+      <link name="station">
+        <collision name="counter_collision">
+          <pose>0 0 0.45 0 0 0</pose>
+          <geometry><box><size>0.9 0.45 0.9</size></box></geometry>
+        </collision>
+        <visual name="counter">
+          <pose>0 0 0.45 0 0 0</pose>
+          <geometry><box><size>0.9 0.45 0.9</size></box></geometry>
+          <material>
+            <ambient>0.18 0.5 0.46 1</ambient>
+            <diffuse>0.2 0.6 0.55 1</diffuse>
+          </material>
+        </visual>
+        <visual name="counter_top">
+          <pose>0 0 0.92 0 0 0</pose>
+          <geometry><box><size>1.0 0.55 0.06</size></box></geometry>
+          <material>
+            <ambient>0.88 0.94 0.92 1</ambient>
+            <diffuse>0.92 0.98 0.96 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="delivery_station_nurse">
+      <static>true</static>
+      <pose>0 -2.65 0 0 0 0</pose>
+      <link name="station">
+        <collision name="desk_collision">
+          <pose>0 0 0.42 0 0 0</pose>
+          <geometry><box><size>1.35 0.45 0.84</size></box></geometry>
+        </collision>
+        <visual name="desk">
+          <pose>0 0 0.42 0 0 0</pose>
+          <geometry><box><size>1.35 0.45 0.84</size></box></geometry>
+          <material>
+            <ambient>0.68 0.46 0.28 1</ambient>
+            <diffuse>0.76 0.54 0.34 1</diffuse>
+          </material>
+        </visual>
+        <visual name="monitor">
+          <pose>-0.28 0 0.95 0 0 0</pose>
+          <geometry><box><size>0.28 0.06 0.2</size></box></geometry>
+          <material>
+            <ambient>0.05 0.08 0.1 1</ambient>
+            <diffuse>0.06 0.1 0.12 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_baseboards">
+      <static>true</static>
+      <link name="link">
+        <visual name="north_baseboard"><pose>0 3.305 0.16 0 0 0</pose><geometry><box><size>10.25 0.045 0.16</size></box></geometry><material><ambient>0.26 0.48 0.58 1</ambient><diffuse>0.3 0.56 0.68 1</diffuse></material></visual>
+        <visual name="south_baseboard"><pose>0 -3.305 0.16 0 0 0</pose><geometry><box><size>10.25 0.045 0.16</size></box></geometry><material><ambient>0.26 0.48 0.58 1</ambient><diffuse>0.3 0.56 0.68 1</diffuse></material></visual>
+        <visual name="west_baseboard"><pose>-5.105 0 0.16 0 0 0</pose><geometry><box><size>0.045 6.65 0.16</size></box></geometry><material><ambient>0.26 0.48 0.58 1</ambient><diffuse>0.3 0.56 0.68 1</diffuse></material></visual>
+        <visual name="east_baseboard"><pose>5.105 0 0.16 0 0 0</pose><geometry><box><size>0.045 6.65 0.16</size></box></geometry><material><ambient>0.26 0.48 0.58 1</ambient><diffuse>0.3 0.56 0.68 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="delivery_goal_markers">
+      <static>true</static>
+      <link name="link">
+        <visual name="pharmacy_goal_pad">
+          <pose>-3.05 1.25 0.025 0 0 0</pose>
+          <geometry><cylinder><radius>0.18</radius><length>0.025</length></cylinder></geometry>
+          <material><ambient>0.1 0.65 0.38 1</ambient><diffuse>0.12 0.78 0.48 1</diffuse></material>
+        </visual>
+        <visual name="pharmacy_goal_center">
+          <pose>-3.05 1.25 0.045 0 0 0</pose>
+          <geometry><cylinder><radius>0.07</radius><length>0.012</length></cylinder></geometry>
+          <material><ambient>0.95 1 0.95 1</ambient><diffuse>1 1 1 1</diffuse></material>
+        </visual>
+        <visual name="nurse_goal_pad">
+          <pose>0 -2.0 0.025 0 0 0</pose>
+          <geometry><cylinder><radius>0.18</radius><length>0.025</length></cylinder></geometry>
+          <material><ambient>0.84 0.58 0.18 1</ambient><diffuse>0.95 0.68 0.22 1</diffuse></material>
+        </visual>
+        <visual name="nurse_goal_center">
+          <pose>0 -2.0 0.045 0 0 0</pose>
+          <geometry><cylinder><radius>0.07</radius><length>0.012</length></cylinder></geometry>
+          <material><ambient>0.95 1 0.95 1</ambient><diffuse>1 1 1 1</diffuse></material>
+        </visual>
+        <visual name="room_101_goal_pad">
+          <pose>0.55 2.45 0.025 0 0 0</pose>
+          <geometry><cylinder><radius>0.18</radius><length>0.025</length></cylinder></geometry>
+          <material><ambient>0.22 0.46 0.9 1</ambient><diffuse>0.28 0.56 1.0 1</diffuse></material>
+        </visual>
+        <visual name="room_101_goal_center">
+          <pose>0.55 2.45 0.045 0 0 0</pose>
+          <geometry><cylinder><radius>0.07</radius><length>0.012</length></cylinder></geometry>
+          <material><ambient>0.95 1 0.95 1</ambient><diffuse>1 1 1 1</diffuse></material>
+        </visual>
+        <visual name="room_102_goal_pad">
+          <pose>2.65 2.45 0.025 0 0 0</pose>
+          <geometry><cylinder><radius>0.18</radius><length>0.025</length></cylinder></geometry>
+          <material><ambient>0.22 0.46 0.9 1</ambient><diffuse>0.28 0.56 1.0 1</diffuse></material>
+        </visual>
+        <visual name="room_102_goal_center">
+          <pose>2.65 2.45 0.045 0 0 0</pose>
+          <geometry><cylinder><radius>0.07</radius><length>0.012</length></cylinder></geometry>
+          <material><ambient>0.95 1 0.95 1</ambient><diffuse>1 1 1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="hospital_signage">
+      <static>true</static>
+      <link name="link">
+        <visual name="pharmacy_sign_panel">
+          <pose>-2.05 1.92 1.3 0 0 0</pose>
+          <geometry><box><size>0.95 0.04 0.34</size></box></geometry>
+          <material><ambient>0.08 0.5 0.32 1</ambient><diffuse>0.1 0.62 0.4 1</diffuse></material>
+        </visual>
+        <visual name="pharmacy_cross_vertical">
+          <pose>-2.05 1.895 1.3 0 0 0</pose>
+          <geometry><box><size>0.08 0.045 0.24</size></box></geometry>
+          <material><ambient>0.96 1 0.96 1</ambient><diffuse>1 1 1 1</diffuse></material>
+        </visual>
+        <visual name="pharmacy_cross_horizontal">
+          <pose>-2.05 1.89 1.3 0 0 0</pose>
+          <geometry><box><size>0.26 0.045 0.075</size></box></geometry>
+          <material><ambient>0.96 1 0.96 1</ambient><diffuse>1 1 1 1</diffuse></material>
+        </visual>
+        <visual name="nurse_sign_panel">
+          <pose>0 -3.31 1.38 0 0 0</pose>
+          <geometry><box><size>1.15 0.045 0.34</size></box></geometry>
+          <material><ambient>0.12 0.36 0.68 1</ambient><diffuse>0.15 0.45 0.82 1</diffuse></material>
+        </visual>
+        <visual name="nurse_sign_white_bar">
+          <pose>0 -3.34 1.38 0 0 0</pose>
+          <geometry><box><size>0.78 0.05 0.07</size></box></geometry>
+          <material><ambient>0.96 0.98 1 1</ambient><diffuse>1 1 1 1</diffuse></material>
+        </visual>
+        <visual name="room_101_badge">
+          <pose>0.75 3.31 1.38 0 0 0</pose>
+          <geometry><box><size>0.5 0.045 0.28</size></box></geometry>
+          <material><ambient>0.18 0.42 0.76 1</ambient><diffuse>0.22 0.5 0.92 1</diffuse></material>
+        </visual>
+        <visual name="room_101_badge_mark_1"><pose>0.62 3.34 1.38 0 0 0</pose><geometry><box><size>0.055 0.05 0.18</size></box></geometry><material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual>
+        <visual name="room_101_badge_mark_2"><pose>0.76 3.34 1.38 0 0 0</pose><geometry><box><size>0.055 0.05 0.18</size></box></geometry><material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual>
+        <visual name="room_102_badge">
+          <pose>3.0 3.31 1.38 0 0 0</pose>
+          <geometry><box><size>0.5 0.045 0.28</size></box></geometry>
+          <material><ambient>0.18 0.42 0.76 1</ambient><diffuse>0.22 0.5 0.92 1</diffuse></material>
+        </visual>
+        <visual name="room_102_badge_mark_1"><pose>2.85 3.34 1.38 0 0 0</pose><geometry><box><size>0.055 0.05 0.18</size></box></geometry><material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual>
+        <visual name="room_102_badge_mark_2"><pose>3.0 3.34 1.38 0 0 0</pose><geometry><box><size>0.055 0.05 0.18</size></box></geometry><material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual>
+        <visual name="room_102_badge_mark_3"><pose>3.15 3.34 1.38 0 0 0</pose><geometry><box><size>0.055 0.05 0.18</size></box></geometry><material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="pharmacy_shelves">
+      <static>true</static>
+      <link name="link">
+        <visual name="shelf_back"><pose>-1.95 2.32 0.75 0 0 0</pose><geometry><box><size>1.25 0.08 1.05</size></box></geometry><material><ambient>0.78 0.86 0.82 1</ambient><diffuse>0.84 0.92 0.88 1</diffuse></material></visual>
+        <visual name="shelf_1"><pose>-1.95 2.25 0.48 0 0 0</pose><geometry><box><size>1.18 0.16 0.05</size></box></geometry><material><ambient>0.25 0.42 0.38 1</ambient><diffuse>0.3 0.5 0.45 1</diffuse></material></visual>
+        <visual name="shelf_2"><pose>-1.95 2.25 0.78 0 0 0</pose><geometry><box><size>1.18 0.16 0.05</size></box></geometry><material><ambient>0.25 0.42 0.38 1</ambient><diffuse>0.3 0.5 0.45 1</diffuse></material></visual>
+        <visual name="medicine_box_1"><pose>-2.35 2.12 0.6 0 0 0</pose><geometry><box><size>0.15 0.12 0.18</size></box></geometry><material><ambient>0.9 0.2 0.2 1</ambient><diffuse>1 0.25 0.25 1</diffuse></material></visual>
+        <visual name="medicine_box_2"><pose>-2.1 2.12 0.6 0 0 0</pose><geometry><box><size>0.15 0.12 0.18</size></box></geometry><material><ambient>0.2 0.55 0.95 1</ambient><diffuse>0.25 0.65 1 1</diffuse></material></visual>
+        <visual name="medicine_box_3"><pose>-1.85 2.12 0.9 0 0 0</pose><geometry><box><size>0.15 0.12 0.18</size></box></geometry><material><ambient>0.95 0.72 0.2 1</ambient><diffuse>1 0.82 0.25 1</diffuse></material></visual>
+        <visual name="medicine_box_4"><pose>-1.6 2.12 0.9 0 0 0</pose><geometry><box><size>0.15 0.12 0.18</size></box></geometry><material><ambient>0.65 0.3 0.88 1</ambient><diffuse>0.75 0.38 1 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="nurse_station_details">
+      <static>true</static>
+      <link name="link">
+        <visual name="back_board"><pose>0 -3.27 0.9 0 0 0</pose><geometry><box><size>1.6 0.04 0.7</size></box></geometry><material><ambient>0.2 0.44 0.62 1</ambient><diffuse>0.24 0.52 0.74 1</diffuse></material></visual>
+        <visual name="chart_1"><pose>-0.42 -3.305 0.95 0 0 0</pose><geometry><box><size>0.22 0.045 0.28</size></box></geometry><material><ambient>0.96 0.96 0.9 1</ambient><diffuse>1 1 0.94 1</diffuse></material></visual>
+        <visual name="chart_2"><pose>-0.08 -3.305 0.95 0 0 0</pose><geometry><box><size>0.22 0.045 0.28</size></box></geometry><material><ambient>0.96 0.96 0.9 1</ambient><diffuse>1 1 0.94 1</diffuse></material></visual>
+        <visual name="chart_3"><pose>0.26 -3.305 0.95 0 0 0</pose><geometry><box><size>0.22 0.045 0.28</size></box></geometry><material><ambient>0.96 0.96 0.9 1</ambient><diffuse>1 1 0.94 1</diffuse></material></visual>
+        <visual name="monitor_glow"><pose>-0.28 -2.66 0.95 0 0 0</pose><geometry><box><size>0.22 0.065 0.13</size></box></geometry><material><ambient>0.08 0.75 0.9 1</ambient><diffuse>0.08 0.85 1 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="patient_room_details">
+      <static>true</static>
+      <link name="link">
+        <visual name="curtain_101"><pose>0.95 2.95 1.1 0 0 0</pose><geometry><box><size>1.1 0.035 1.55</size></box></geometry><material><ambient>0.6 0.78 0.92 0.72</ambient><diffuse>0.68 0.86 1 0.72</diffuse></material></visual>
+        <visual name="curtain_102"><pose>3.2 2.95 1.1 0 0 0</pose><geometry><box><size>1.1 0.035 1.55</size></box></geometry><material><ambient>0.6 0.78 0.92 0.72</ambient><diffuse>0.68 0.86 1 0.72</diffuse></material></visual>
+        <visual name="iv_pole_101"><pose>0.95 1.75 0.72 0 0 0</pose><geometry><cylinder><radius>0.025</radius><length>1.35</length></cylinder></geometry><material><ambient>0.72 0.74 0.76 1</ambient><diffuse>0.8 0.82 0.84 1</diffuse></material></visual>
+        <visual name="iv_bag_101"><pose>0.95 1.75 1.45 0 0 0</pose><geometry><box><size>0.16 0.04 0.22</size></box></geometry><material><ambient>0.85 0.95 1 0.86</ambient><diffuse>0.9 0.98 1 0.86</diffuse></material></visual>
+        <visual name="iv_pole_102"><pose>3.2 1.75 0.72 0 0 0</pose><geometry><cylinder><radius>0.025</radius><length>1.35</length></cylinder></geometry><material><ambient>0.72 0.74 0.76 1</ambient><diffuse>0.8 0.82 0.84 1</diffuse></material></visual>
+        <visual name="iv_bag_102"><pose>3.2 1.75 1.45 0 0 0</pose><geometry><box><size>0.16 0.04 0.22</size></box></geometry><material><ambient>0.85 0.95 1 0.86</ambient><diffuse>0.9 0.98 1 0.86</diffuse></material></visual>
+        <visual name="bedside_table_101"><pose>0.85 1.45 0.3 0 0 0</pose><geometry><box><size>0.28 0.28 0.5</size></box></geometry><material><ambient>0.62 0.46 0.32 1</ambient><diffuse>0.72 0.54 0.38 1</diffuse></material></visual>
+        <visual name="bedside_table_102"><pose>3.1 1.45 0.3 0 0 0</pose><geometry><box><size>0.28 0.28 0.5</size></box></geometry><material><ambient>0.62 0.46 0.32 1</ambient><diffuse>0.72 0.54 0.38 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="bed_polish_details">
+      <static>true</static>
+      <link name="link">
+        <visual name="blanket_101"><pose>1.82 1.85 0.61 0 0 0</pose><geometry><box><size>0.62 0.52 0.035</size></box></geometry><material><ambient>0.28 0.58 0.78 1</ambient><diffuse>0.32 0.68 0.9 1</diffuse></material></visual>
+        <visual name="left_rail_101"><pose>1.7 2.19 0.65 0 0 0</pose><geometry><box><size>1.25 0.035 0.16</size></box></geometry><material><ambient>0.78 0.82 0.84 1</ambient><diffuse>0.86 0.9 0.92 1</diffuse></material></visual>
+        <visual name="right_rail_101"><pose>1.7 1.51 0.65 0 0 0</pose><geometry><box><size>1.25 0.035 0.16</size></box></geometry><material><ambient>0.78 0.82 0.84 1</ambient><diffuse>0.86 0.9 0.92 1</diffuse></material></visual>
+        <visual name="blanket_102"><pose>3.97 1.85 0.61 0 0 0</pose><geometry><box><size>0.62 0.52 0.035</size></box></geometry><material><ambient>0.28 0.58 0.78 1</ambient><diffuse>0.32 0.68 0.9 1</diffuse></material></visual>
+        <visual name="left_rail_102"><pose>3.85 2.19 0.65 0 0 0</pose><geometry><box><size>1.25 0.035 0.16</size></box></geometry><material><ambient>0.78 0.82 0.84 1</ambient><diffuse>0.86 0.9 0.92 1</diffuse></material></visual>
+        <visual name="right_rail_102"><pose>3.85 1.51 0.65 0 0 0</pose><geometry><box><size>1.25 0.035 0.16</size></box></geometry><material><ambient>0.78 0.82 0.84 1</ambient><diffuse>0.86 0.9 0.92 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="ceiling_panels">
+      <static>true</static>
+      <link name="link">
+        <visual name="panel_corridor_1"><pose>-2.8 0 2.72 0 0 0</pose><geometry><box><size>1.0 0.45 0.035</size></box></geometry><material><ambient>0.92 0.96 1 1</ambient><diffuse>0.96 0.98 1 1</diffuse></material></visual>
+        <visual name="panel_corridor_2"><pose>0 0 2.72 0 0 0</pose><geometry><box><size>1.0 0.45 0.035</size></box></geometry><material><ambient>0.92 0.96 1 1</ambient><diffuse>0.96 0.98 1 1</diffuse></material></visual>
+        <visual name="panel_corridor_3"><pose>2.8 0 2.72 0 0 0</pose><geometry><box><size>1.0 0.45 0.035</size></box></geometry><material><ambient>0.92 0.96 1 1</ambient><diffuse>0.96 0.98 1 1</diffuse></material></visual>
+        <visual name="panel_room_101"><pose>1.65 2.3 2.72 0 0 0</pose><geometry><box><size>0.65 0.42 0.035</size></box></geometry><material><ambient>0.92 0.96 1 1</ambient><diffuse>0.96 0.98 1 1</diffuse></material></visual>
+        <visual name="panel_room_102"><pose>3.75 2.3 2.72 0 0 0</pose><geometry><box><size>0.65 0.42 0.035</size></box></geometry><material><ambient>0.92 0.96 1 1</ambient><diffuse>0.96 0.98 1 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <model name="route_chevrons">
+      <static>true</static>
+      <link name="link">
+        <visual name="chevron_1_left"><pose>0 -0.95 0.03 0 0 0.55</pose><geometry><box><size>0.36 0.045 0.018</size></box></geometry><material><ambient>0.95 0.78 0.18 1</ambient><diffuse>1 0.86 0.22 1</diffuse></material></visual>
+        <visual name="chevron_1_right"><pose>0 -0.95 0.03 0 0 -0.55</pose><geometry><box><size>0.36 0.045 0.018</size></box></geometry><material><ambient>0.95 0.78 0.18 1</ambient><diffuse>1 0.86 0.22 1</diffuse></material></visual>
+        <visual name="chevron_2_left"><pose>0 0.15 0.03 0 0 0.55</pose><geometry><box><size>0.36 0.045 0.018</size></box></geometry><material><ambient>0.95 0.78 0.18 1</ambient><diffuse>1 0.86 0.22 1</diffuse></material></visual>
+        <visual name="chevron_2_right"><pose>0 0.15 0.03 0 0 -0.55</pose><geometry><box><size>0.36 0.045 0.018</size></box></geometry><material><ambient>0.95 0.78 0.18 1</ambient><diffuse>1 0.86 0.22 1</diffuse></material></visual>
+        <visual name="chevron_3_left"><pose>0 1.25 0.03 0 0 0.55</pose><geometry><box><size>0.36 0.045 0.018</size></box></geometry><material><ambient>0.95 0.78 0.18 1</ambient><diffuse>1 0.86 0.22 1</diffuse></material></visual>
+        <visual name="chevron_3_right"><pose>0 1.25 0.03 0 0 -0.55</pose><geometry><box><size>0.36 0.045 0.018</size></box></geometry><material><ambient>0.95 0.78 0.18 1</ambient><diffuse>1 0.86 0.22 1</diffuse></material></visual>
+      </link>
+    </model>
+  </world>
+</sdf>

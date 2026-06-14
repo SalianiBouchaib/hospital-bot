@@ -1,3 +1,0 @@
-[console_scripts]
-delivery_manager_node = hospital_robot_delivery.delivery_manager_node:main
-

@@ -1,0 +1,8 @@
+sensor_node:
+  ros__parameters:
+    scan_topic: /scan
+    frame_id: lidar_link
+    scan_rate_hz: 10.0
+    range_min: 0.15
+    range_max: 12.0
+    num_readings: 360
